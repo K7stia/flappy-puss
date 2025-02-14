@@ -104,7 +104,7 @@ pipes = {
     //pipes' values for drawing on canvas
     w: 55,
     h: 300,
-    gap: 85,
+    gap: 125,
     dx: 2,
     //acceptable y values must be -260 <= y <= -40
     minY: -260,
