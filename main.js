@@ -348,19 +348,19 @@ score = {
 bird = {
     animation: [
         {imgX: 276, imgY: 114},  //  position 0
-        {imgX: 276, imgY: 140},  //  position 1
-        {imgX: 276, imgY: 166},  //  position 2
-        {imgX: 276, imgY: 140}   //  position 1
+        {imgX: 276, imgY: 153},  //  position 1
+        {imgX: 276, imgY: 190},  //  position 2
+        {imgX: 276, imgY: 153}   //  position 1
     ],
     fr: 0,
     //object's key-value properties pinpointing its location
     width: 34,
-    height: 24,
+    height: 37,
     //values for drawing on canvas
     x: 50,
     y: 160,
     w: 34,
-    h: 24,
+    h: 37,
     //bird's radius
     r: 12,
     //how much the bird flies per flap()
