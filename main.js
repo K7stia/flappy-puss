@@ -347,14 +347,14 @@ score = {
 //bird : YELLOW BIRD
 bird = {
     animation: [
-        {imgX: 276, imgY: 114},  //  position 0
-        {imgX: 276, imgY: 153},  //  position 1
-        {imgX: 276, imgY: 190},  //  position 2
-        {imgX: 276, imgY: 153}   //  position 1
+        {imgX: 277, imgY: 114},  //  position 0
+        {imgX: 277, imgY: 153},  //  position 1
+        {imgX: 277, imgY: 190},  //  position 2
+        {imgX: 277, imgY: 153}   //  position 1
     ],
     fr: 0,
     //object's key-value properties pinpointing its location
-    width: 34,
+    width: 33,
     height: 37,
     //values for drawing on canvas
     x: 50,
