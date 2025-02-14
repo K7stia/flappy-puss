@@ -643,7 +643,7 @@ getReady = {
 gameOver = {
     //object's key-value properties pinpointing its location
     imgX: 174,
-    imgY: 128,
+    imgY: 228,
     width: 226,
     height: 158,
     //values for drawing on canvas
