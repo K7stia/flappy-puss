@@ -16,7 +16,9 @@ body {
 .game-title h1 {
 /***** Flappy Bird *****/
     text-align: center;
-    font-family: 'Carter One', cursive;
+    font-family: "Silkscreen", serif;
+    font-weight: 700;
+    font-style: normal;
     color: #caf85c;
     font-size: 3em;
     line-height: 150%;
