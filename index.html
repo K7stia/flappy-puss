@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,17 +14,45 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
 </head>
+
 <body>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, orderBy, limit, query, where } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB2f0-1vzKXQgwjnN9RafRiyjpcm_7R8bw",
+            authDomain: "lpussspaceinvider.firebaseapp.com",
+            projectId: "lpussspaceinvider",
+            storageBucket: "lpussspaceinvider.firebasestorage.app",
+            messagingSenderId: "1041448955234",
+            appId: "1:1041448955234:web:c7c40e4ce488a631fa503b",
+            measurementId: "G-ZXG9YNJ5DS"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.query = query;
+        window.orderBy = orderBy;
+        window.limit = limit;
+        window.getDocs = getDocs;
+        window.where = where;
+    </script>
     <div class="container">
         <div class="game-title">
             <h1>FLAPPY PUSS</h1>
         </div>
         <div class="game-screen">
             <canvas id="game" width="300" height="500"></canvas>
-            <p id="description" class="game-description">Press 'spacebar' or 'click' to begin</p>
+            <p id="description" class="game-description">Tap the screen or press 'restart' to begin</p>
         </div>
     </div>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
     <!-- K7stia -->
 </body>
+
 </html>
