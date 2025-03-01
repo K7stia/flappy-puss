@@ -13,6 +13,22 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
+    <style>
+        /* Стилі для прихованого input на екрані gameOver */
+        #mobileInput {
+            position: absolute;
+            top: -100px;
+            /* Ховаємо за межами екрану за замовчуванням */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 30px;
+            font-size: 16px;
+            padding: 0 5px;
+            border: 1px solid #000000;
+            visibility: hidden;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,7 +64,8 @@
         </div>
         <div class="game-screen">
             <canvas id="game" width="300" height="500"></canvas>
-            <p id="description" class="game-description">Tap the screen or press 'restart' to begin</p>
+            <input type="text" id="mobileInput" maxlength="15" autocomplete="off"> <!-- Додаємо input -->
+            <p id="description" class="game-description">Press 'spacebar' or 'click' to begin</p>
         </div>
     </div>
     <script type="module" src="main.js"></script>

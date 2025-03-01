@@ -4,6 +4,7 @@
 let cvs = document.getElementById('game');
 let ctx = cvs.getContext('2d');
 let description = document.getElementById('description');
+let mobileInput = document.getElementById('mobileInput'); // Отримуємо input для мобільних
 let theme1 = new Image(); theme1.src = 'img/og-theme.png';
 let theme2 = new Image(); theme2.src = 'img/og-theme-2.png';
 let frame = 0;
@@ -246,16 +247,16 @@ const nameInput = {
     value: "",
     x: cvs.width / 2 - 100, y: cvs.height / 2 + 50, width: 200, height: 30,
     buttonX: cvs.width / 2 - 50, buttonY: cvs.height / 2 + 90, buttonWidth: 100, buttonHeight: 30,
-    restartX: cvs.width / 2 - 50, restartY: cvs.height - 60, restartWidth: 100, restartHeight: 30, // Нова кнопка "Restart"
+    restartX: cvs.width / 2 - 50, restartY: cvs.height - 60, restartWidth: 100, restartHeight: 30,
     maxLength: 15,
     render: function () {
         if (gameState.current === gameState.gameOver) {
             // Поле вводу з білим фоном і рамкою
             ctx.fillStyle = "#FFFFFF";
             ctx.fillRect(this.x, this.y, this.width, this.height);
-            ctx.strokeStyle = "#000000"; // Колір рамки
+            ctx.strokeStyle = "#000000";
             ctx.lineWidth = 1;
-            ctx.strokeRect(this.x, this.y, this.width, this.height); // Рамка для поля вводу
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
 
             ctx.fillStyle = "#000000";
             ctx.font = "16px Arial";
@@ -265,24 +266,32 @@ const nameInput = {
             // Кнопка Submit із рамкою
             ctx.fillStyle = "#4CAF50";
             ctx.fillRect(this.buttonX, this.buttonY, this.buttonWidth, this.buttonHeight);
-            ctx.strokeStyle = "#000000"; // Колір рамки
+            ctx.strokeStyle = "#000000";
             ctx.lineWidth = 1;
-            ctx.strokeRect(this.buttonX, this.buttonY, this.buttonWidth, this.buttonHeight); // Рамка для кнопки
+            ctx.strokeRect(this.buttonX, this.buttonY, this.buttonWidth, this.buttonHeight);
             ctx.fillStyle = "#FFFFFF";
             ctx.font = "16px Arial";
             ctx.textAlign = "center";
             ctx.fillText("Submit", this.buttonX + this.buttonWidth / 2, this.buttonY + 20);
 
             // Кнопка Restart із рамкою
-            ctx.fillStyle = "#FF5733"; // Червоно-оранжевий колір для кнопки Restart
+            ctx.fillStyle = "#FF5733";
             ctx.fillRect(this.restartX, this.restartY, this.restartWidth, this.restartHeight);
-            ctx.strokeStyle = "#000000"; // Колір рамки
+            ctx.strokeStyle = "#000000";
             ctx.lineWidth = 1;
-            ctx.strokeRect(this.restartX, this.restartY, this.restartWidth, this.restartHeight); // Рамка для кнопки
+            ctx.strokeRect(this.restartX, this.restartY, this.restartWidth, this.restartHeight);
             ctx.fillStyle = "#FFFFFF";
             ctx.font = "16px Arial";
             ctx.textAlign = "center";
             ctx.fillText("Restart", this.restartX + this.restartWidth / 2, this.restartY + 20);
+
+            // Позиціонування input для мобільних
+            mobileInput.style.top = `${this.y}px`;
+            mobileInput.style.visibility = "visible";
+            mobileInput.focus(); // Активуємо віртуальну клавіатуру
+            mobileInput.value = this.value; // Синхронізуємо значення
+        } else {
+            mobileInput.style.visibility = "hidden"; // Ховаємо input, коли не в gameOver
         }
     },
     handleClick: function (x, y) {
@@ -304,9 +313,14 @@ const nameInput = {
                 y >= this.restartY && y <= this.restartY + this.restartHeight) {
                 pipes.reset();
                 score.reset();
-                this.value = ""; // Очищаємо поле вводу
+                this.value = "";
                 gameState.current = gameState.getReady;
                 SFX_SWOOSH.play();
+            }
+            // Клік по полю вводу для активації на ПК
+            else if (x >= this.x && x <= this.x + this.width &&
+                y >= this.y && y <= this.y + this.height) {
+                // Нічого не робимо, просто зберігаємо фокус для ПК
             }
         }
     },
@@ -324,6 +338,7 @@ const nameInput = {
             } else if (key.length === 1 && this.value.length < this.maxLength) {
                 this.value += key;
             }
+            mobileInput.value = this.value; // Синхронізуємо з input
         }
     }
 };
@@ -364,11 +379,8 @@ const leaderboard = {
     },
     render: function () {
         if (gameState.current === gameState.gameOver || (gameState.current === gameState.getReady && showLeaderboard)) {
-            // Напівпрозорий білий фон
             ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
-            ctx.fillRect(cvs.width / 2 - 150, cvs.height / 2 - 115, 300, 155); // Фон для лідерборду
-
-            // Чорний текст
+            ctx.fillRect(cvs.width / 2 - 150, cvs.height / 2 - 115, 300, 155);
             ctx.fillStyle = "#18656d";
             ctx.font = "20px Arial";
             ctx.textAlign = "center";
@@ -381,6 +393,13 @@ const leaderboard = {
         }
     }
 };
+
+// Синхронізація введення з input для мобільних
+mobileInput.addEventListener('input', (e) => {
+    if (gameState.current === gameState.gameOver) {
+        nameInput.value = e.target.value.slice(0, nameInput.maxLength); // Обмежуємо до 15 символів
+    }
+});
 
 leaderboard.loadLeaderboard();
 
@@ -438,7 +457,7 @@ cvs.addEventListener('click', (e) => {
         description.style.visibility = "hidden";
     }
     if (gameState.current == gameState.gameOver) {
-        nameInput.handleClick(x, y); // Обробка кліків по кнопках "Submit" і "Restart"
+        nameInput.handleClick(x, y);
     }
 });
 
